@@ -130,11 +130,15 @@ def main():
                 "please try again after surrounding the entire path with quotes \"\".",
                 file=sys.stderr)
             continue
-        print(f"Separating track {track}")
+        print(f"Separating track {track}: load_track({track}, audio_channels={model.audio_channels}, samplerate={model.samplerate}")
         wav = load_track(track, model.audio_channels, model.samplerate)
 
+        print(f"sepparate main() wav: {tuple(wav.shape)}, mean {wav.mean().item():.3f}, std {wav.std().item():.3f}, R [{wav.min().item():.3f} {wav.max().item():.3f}]")
         ref = wav.mean(0)
         wav = (wav - ref.mean()) / ref.std()
+        print(f"applying model to (wav-mean)/std: {tuple(wav.shape)}, mean {wav.mean().item():.3f}, std {wav.std().item():.3f}, R [{wav.min().item():.3f} {wav.max().item():.3f}]")
+
+
         sources = apply_model(model, wav[None], device=args.device, shifts=args.shifts,
                               split=args.split, overlap=args.overlap, progress=True,
                               num_workers=args.jobs)[0]

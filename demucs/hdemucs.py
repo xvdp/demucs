@@ -14,10 +14,12 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+
 from .demucs import DConv, rescale_module
 from .states import capture_init
 from .spec import spectro, ispectro
 
+from .debug_util import _DEBUG, print_cond, get_shape
 
 class ScaledEmbedding(nn.Module):
     """
@@ -99,6 +101,7 @@ class HEncLayer(nn.Module):
         if dconv:
             self.dconv = DConv(chout, **dconv_kw)
 
+
     def forward(self, x, inject=None):
         """
         `inject` is used to inject the result from the time branch into the frequency branch,
@@ -113,6 +116,7 @@ class HEncLayer(nn.Module):
             if not le % self.stride == 0:
                 x = F.pad(x, (0, self.stride - (le % self.stride)))
         y = self.conv(x)
+
         if self.empty:
             return y
         if inject is not None:
@@ -120,14 +124,15 @@ class HEncLayer(nn.Module):
             if inject.dim() == 3 and y.dim() == 4:
                 inject = inject[:, :, None]
             y = y + inject
+
         y = F.gelu(self.norm1(y))
         if self.dconv:
             if self.freq:
                 B, C, Fr, T = y.shape
-                y = y.permute(0, 2, 1, 3).reshape(-1, C, T)
+                y = y.permute(0, 2, 1, 3).reshape(-1, C, T).contiguous()
             y = self.dconv(y)
             if self.freq:
-                y = y.view(B, Fr, C, T).permute(0, 2, 1, 3)
+                y = y.view(B, Fr, C, T).permute(0, 2, 1, 3).contiguous()
         if self.rewrite:
             z = self.norm2(self.rewrite(y))
             z = F.glu(z, dim=1)
@@ -170,6 +175,7 @@ class MultiWrap(nn.Module):
                 if hasattr(m, 'reset_parameters'):
                     m.reset_parameters()
             self.layers.append(lay)
+        print(f"MultiWrap().__init__(): split ratios {len(split_ratios)}, layer {layer.__class__.__name__}")
 
     def forward(self, x, skip=None, length=None):
         B, C, Fr, T = x.shape
@@ -295,10 +301,10 @@ class HDecLayer(nn.Module):
             if self.dconv:
                 if self.freq:
                     B, C, Fr, T = y.shape
-                    y = y.permute(0, 2, 1, 3).reshape(-1, C, T)
+                    y = y.permute(0, 2, 1, 3).reshape(-1, C, T).contiguous()
                 y = self.dconv(y)
                 if self.freq:
-                    y = y.view(B, Fr, C, T).permute(0, 2, 1, 3)
+                    y = y.view(B, Fr, C, T).permute(0, 2, 1, 3).contiguous()
         else:
             y = x
             assert skip is None
@@ -431,6 +437,9 @@ class HDemucs(nn.Module):
 
         """
         super().__init__()
+
+        print_cond(f'HDemucs.__init__(cac={cac}, wiener_residua={wiener_residual}, depth={depth}, multi_freqs={multi_freqs}, multi_freqs_depth={multi_freqs_depth})', color="green")
+        _indent=" "
         self.cac = cac
         self.wiener_residual = wiener_residual
         self.audio_channels = audio_channels
@@ -521,14 +530,19 @@ class HDemucs(nn.Module):
                 chout_z = max(chout, chout_z)
                 chout = chout_z
 
+            print_cond(f"{' '*(index+1)}FREQ. HEncLayer(chin={chin_z} chout={chout_z}, freq={freq}, dconv={dconv_mode & 1}, context={context_enc}, {kw}", color="yellow")
+
             enc = HEncLayer(chin_z, chout_z,
                             dconv=dconv_mode & 1, context=context_enc, **kw)
             if hybrid and freq:
+                print_cond(f"{' '*(index+1)}TIME. HEncLayer(chin={chin} chout={chout}, empty={last_freq}, dconv={dconv_mode & 1}, context={context_enc}, {kwt}", color="blue")
+
                 tenc = HEncLayer(chin, chout, dconv=dconv_mode & 1, context=context_enc,
                                  empty=last_freq, **kwt)
                 self.tencoder.append(tenc)
 
             if multi:
+                print_cond(f"{' '*(index+1)}MultiWrap(enc, multi_freqs={multi_freqs})")
                 enc = MultiWrap(enc, multi_freqs)
             self.encoder.append(enc)
             if index == 0:
@@ -536,11 +550,18 @@ class HDemucs(nn.Module):
                 chin_z = chin
                 if self.cac:
                     chin_z *= 2
+            print_cond(f"{' '*(index+1)}FREQ. HDecLayer(chin={chin_z} chout={chout_z}, freq={freq}, dconv={dconv_mode & 2}, context={context}, {kw_dec}", color="red")
+
             dec = HDecLayer(chout_z, chin_z, dconv=dconv_mode & 2,
                             last=index == 0, context=context, **kw_dec)
+
             if multi:
+                print_cond(f"{' '*(index+1)}MultiWrap(dec, multi_freqs={multi_freqs})")
+
                 dec = MultiWrap(dec, multi_freqs)
             if hybrid and freq:
+                print_cond(f"{' '*(index+1)}TIME. HDecLayer(chin={chin} chout={chout}, freq={freq}, dconv={dconv_mode & 2}, context={context},  empty={last_freq}, {kwt}", color="green")
+
                 tdec = HDecLayer(chout, chin, dconv=dconv_mode & 2, empty=last_freq,
                                  last=index == 0, context=context, **kwt)
                 self.tdecoder.insert(0, tdec)
@@ -562,6 +583,9 @@ class HDemucs(nn.Module):
 
         if rescale:
             rescale_module(self, reference=rescale)
+
+        self.LOGONCE=1
+        self.counter = 0
 
     def _spec(self, x):
         hl = self.hop_length
@@ -614,7 +638,7 @@ class HDemucs(nn.Module):
         # in which case we just move the complex dimension to the channel one.
         if self.cac:
             B, C, Fr, T = z.shape
-            m = torch.view_as_real(z).permute(0, 1, 4, 2, 3)
+            m = torch.view_as_real(z).permute(0, 1, 4, 2, 3).contiguous()
             m = m.reshape(B, C * 2, Fr, T)
         else:
             m = z.abs()
@@ -644,8 +668,11 @@ class HDemucs(nn.Module):
         residual = self.wiener_residual
 
         B, S, C, Fq, T = mag_out.shape
-        mag_out = mag_out.permute(0, 4, 3, 2, 1)
-        mix_stft = torch.view_as_real(mix_stft.permute(0, 3, 2, 1))
+        mag_out = mag_out.permute(0, 4, 3, 2, 1).contiguous()
+        mix_stft = torch.view_as_real(mix_stft.permute(0, 3, 2, 1)).contiguous()
+
+        print(f"HDemucs()._wiener(mag_out{tuple(mag_out.shape)}, mix_stft {tuple(mix_stft.shape)})")
+
 
         outs = []
         for sample in range(B):
@@ -666,11 +693,30 @@ class HDemucs(nn.Module):
         return out.to(init)
 
     def forward(self, mix):
+        """
+        wav = '/home/z/Music/Recording_Tests/Disc_1/14-Lola (Mono Single Mix).flac'
+        x, sample_rate = torchaudio.load(wav)
+        print("audio_shape", x.shape, sample_rate)
+        (torch.Size([2, 10788624]), 44100)
+
+        1. # bag of models, default
+        mix (1, 2, 1944996), torch.float32 # wav. 
+        z   (1, 2, 2048, 1900), torch.complex64
+        mag   (1, 4, 2048, 1900), torch.float32
+        xt   (1, 2, 1944996), torch.float32	hybrid branch
+        """
         x = mix
         length = x.shape[-1]
 
         z = self._spec(mix)
         mag = self._magnitude(z)
+
+        print_cond(f"HDemucs().forward(mix) [{self.counter}] {tuple(mix.shape)}", color='green')
+        self.counter += 1
+        if self.LOGONCE:
+            print_cond(f" z: stft   {tuple(z.shape)}, {z.dtype}")
+            print_cond(f" mag: stft_as real   {tuple(mag.shape)}, {mag.dtype} , mean {mag.mean().item():.3f}, std {mag.std().item():.3f}, R [{mag.min().item():.3f} {mag.max().item():.3f}")
+
         x = mag
 
         B, C, Fq, T = x.shape
@@ -679,6 +725,9 @@ class HDemucs(nn.Module):
         mean = x.mean(dim=(1, 2, 3), keepdim=True)
         std = x.std(dim=(1, 2, 3), keepdim=True)
         x = (x - mean) / (1e-5 + std)
+        if self.LOGONCE:
+            print_cond(f"mag: stft norm   {tuple(x.shape)}, {x.dtype} , mean {x.mean().item():.3f}, std {x.std().item():.3f}, R [{x.min().item():.3f} {x.max().item():.3f}]")
+
         # x will be the freq. branch input.
 
         if self.hybrid:
@@ -688,19 +737,30 @@ class HDemucs(nn.Module):
             stdt = xt.std(dim=(1, 2), keepdim=True)
             xt = (xt - meant) / (1e-5 + stdt)
 
+            if self.LOGONCE:
+                print_cond(f" xt: time_branch norm  {tuple(xt.shape)}, {xt.dtype}, mean {xt.mean().item():.3f}, std {xt.std().item():.3f}, R [{xt.min().item():.3f} {xt.max().item():.3f}]")
+
         # okay, this is a giant mess I know...
         saved = []  # skip connections, freq.
         saved_t = []  # skip connections, time.
         lengths = []  # saved lengths to properly remove padding, freq branch.
         lengths_t = []  # saved lengths for time branch.
+    
+        if self.LOGONCE:
+            print_cond(f" encoder length {len(self.encoder)}")
+    
         for idx, encode in enumerate(self.encoder):
             lengths.append(x.shape[-1])
             inject = None
+
             if self.hybrid and idx < len(self.tencoder):
                 # we have not yet merged branches.
                 lengths_t.append(xt.shape[-1])
                 tenc = self.tencoder[idx]
+                _xt_shape = tuple(xt.shape)
                 xt = tenc(xt)
+                print_cond(f"{' '*idx}{tenc.__class__.__name__}[{idx}] {_xt_shape}-> {tuple(xt.shape)}: TIME BRANCH", color="blue")
+
                 if not tenc.empty:
                     # save for skip connection
                     saved_t.append(xt)
@@ -708,13 +768,31 @@ class HDemucs(nn.Module):
                     # tenc contains just the first conv., so that now time and freq.
                     # branches have the same shape and can be merged.
                     inject = xt
+
+
+            _xshape = tuple(x.shape)
+            if inject is None:
+                _xt_shape = None
+                _color = "yellow"
+                _merge = ''
+            else:
+                _xt_shape = tuple(xt.shape)
+                _color = "red"
+                _merge = 'MERGE TIME & '
+
             x = encode(x, inject)
+     
+            print_cond(f"{' '*idx}{encode.__class__.__name__}[{idx}] ({_xshape}, {_xt_shape})-> {tuple(x.shape)}: {_merge}FREQ BRANCH", color=_color)
+
+
             if idx == 0 and self.freq_emb is not None:
                 # add frequency embedding to allow for non equivariant convolutions
                 # over the frequency axis.
                 frs = torch.arange(x.shape[-2], device=x.device)
-                emb = self.freq_emb(frs).t()[None, :, :, None].expand_as(x)
+                _emb =  self.freq_emb(frs).t()[None, :, :, None]
+                emb = _emb.expand_as(x)
                 x = x + self.freq_emb_scale * emb
+                print(f" x = x + freq embed({tuple(frs.shape)}) {tuple(_emb.shape)}.expand -> emb {tuple(emb.shape)} * scale {self.freq_emb_scale}")
 
             saved.append(x)
 
@@ -725,7 +803,13 @@ class HDemucs(nn.Module):
 
         for idx, decode in enumerate(self.decoder):
             skip = saved.pop(-1)
+            _shapes = f"x {tuple(x.shape)}, skip {tuple(skip.shape)}"
             x, pre = decode(x, skip, lengths.pop(-1))
+        
+            _out_shapes = f"x={get_shape(x)}, pre={get_shape(pre)}"
+
+            print_cond(f"{' '*(len(self.decoder) - idx)}{decode.__class__.__name__}[{idx}] ({_shapes} -> {_out_shapes}:FREQ BRANCH", color='yellow')
+
             # `pre` contains the output just before final transposed convolution,
             # which is used when the freq. and time branch separate.
 
@@ -737,10 +821,20 @@ class HDemucs(nn.Module):
                 if tdec.empty:
                     assert pre.shape[2] == 1, pre.shape
                     pre = pre[:, :, 0]
+                    _shapes = f"pre {tuple(pre.shape)}"
+
                     xt, _ = tdec(pre, None, length_t)
+                    _color = "red"
+                    _merge = " UNMERGED"
                 else:
                     skip = saved_t.pop(-1)
+                    _shapes = f"xt {tuple(xt.shape)}, skip {tuple(skip.shape)}"
                     xt, _ = tdec(xt, skip, length_t)
+                    _color = "blue"
+                    _merge = ""
+
+                print_cond(f"{' '*(len(self.decoder) - idx)}{tdec.__class__.__name__}[{idx - offset}] ({_shapes} -> {tuple(xt.shape)}{_merge} TIME BRANCH", color=_color)
+                
 
         # Let's make sure we used all stored skip connections.
         assert len(saved) == 0
@@ -748,14 +842,23 @@ class HDemucs(nn.Module):
         assert len(saved_t) == 0
 
         S = len(self.sources)
+        _xshape = tuple(x.shape)
         x = x.view(B, S, -1, Fq, T)
         x = x * std[:, None] + mean[:, None]
 
         zout = self._mask(z, x)
         x = self._ispec(zout, length)
+        print_cond(f"OUT_FREQ -> iSFFT {_xshape} -> {tuple(x.shape)}", color='yellow')
+
 
         if self.hybrid:
+            _xshape = tuple(xt.shape)
             xt = xt.view(B, S, -1, length)
             xt = xt * stdt[:, None] + meant[:, None]
             x = xt + x
+
+            print_cond(f"OUT TIME{_xshape} -> {tuple(xt.shape)} + OUT_FREQ  {x.shape}", color='green')
+
+        if self.LOGONCE:
+            self.LOGONCE=0
         return x

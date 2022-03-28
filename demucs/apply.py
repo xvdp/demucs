@@ -136,6 +136,7 @@ def apply_model(model, mix, shifts=1, split=True,
             When `device` is different from `mix.device`, only local computations will
             be on `device`, while the entire tracks will be stored on `mix.device`.
     """
+    print(f"Apply Model on {mix.shape}")
     if device is None:
         device = mix.device
     else:
@@ -158,6 +159,7 @@ def apply_model(model, mix, shifts=1, split=True,
         # Special treatment for bag of model.
         # We explicitely apply multiple times `apply_model` so that the random shifts
         # are different for each model.
+        print("Applying on Bag of Models")
         estimates = 0
         totals = [0] * len(model.sources)
         for sub_model, weight in zip(model.models, model.weights):
@@ -176,6 +178,10 @@ def apply_model(model, mix, shifts=1, split=True,
             estimates[:, k, :, :] /= totals[k]
         return estimates
 
+    print(f" overlap: {overlap}")
+    print(f" shifts:  {shifts}")
+    print(f" split:   {split}")
+    print(f" transition_power:   {transition_power}")
     model.to(device)
     assert transition_power >= 1, "transition_power < 1 leads to weird behavior."
     batch, channels, length = mix.shape
@@ -186,6 +192,7 @@ def apply_model(model, mix, shifts=1, split=True,
         segment = int(model.samplerate * model.segment)
         stride = int((1 - overlap) * segment)
         offsets = range(0, length, stride)
+        print(f"\nsplit length {length} to offsets w stride {stride}, segment {segment}: {list(offsets)}")
         scale = stride / model.samplerate
         # We start from a triangle shaped weight, with maximal weight in the middle
         # of the segment. Then we normalize and take to the power `transition_power`.

@@ -40,13 +40,13 @@ class BLSTM(nn.Module):
             frames = unfold(x, width, stride)
             nframes = frames.shape[2]
             framed = True
-            x = frames.permute(0, 2, 1, 3).reshape(-1, C, width)
+            x = frames.permute(0, 2, 1, 3).reshape(-1, C, width).contiguous()
 
-        x = x.permute(2, 0, 1)
+        x = x.permute(2, 0, 1).contiguous()
 
         x = self.lstm(x)[0]
         x = self.linear(x)
-        x = x.permute(1, 2, 0)
+        x = x.permute(1, 2, 0).contiguous()
         if framed:
             out = []
             frames = x.reshape(B, -1, C, width)

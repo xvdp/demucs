@@ -1,5 +1,11 @@
 # Demucs Music Source Separation
 
+## x_dev branch info
+This adds only **DEBUG info** to main branch, should only be used if you want to see how the network is built.
+Log grab from this branch: ./scripts/debughdemucs.log
+
+...
+
 [![Support Ukraine](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://opensource.fb.com/support-ukraine) 
 ![tests badge](https://github.com/facebookresearch/demucs/workflows/tests/badge.svg)
 ![linter badge](https://github.com/facebookresearch/demucs/workflows/linter/badge.svg)

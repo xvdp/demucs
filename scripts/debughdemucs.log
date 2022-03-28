@@ -1,0 +1,619 @@
+##
+#
+# inference on pretrained
+#
+(abj) z@zXb:~/temp$ demucs -n 7fd6ef75 '/home/z/Music/Recording_Tests/Disc_1/14-Lola (Mono Single Mix).flac'
+ HDemucs.__init__(cac=True, wiener_residua=False, depth=6, multi_freqs=[], multi_freqs_depth=3) 
+  FREQ. HEncLayer(chin=4 chout=48, freq=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+  TIME. HEncLayer(chin=2 chout=48, empty=False, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+  FREQ. HDecLayer(chin=16 chout=48, freq=True, dconv=0, context=1, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+  TIME. HDecLayer(chin=8 chout=48, freq=True, dconv=0, context=1,  empty=False, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+   FREQ. HEncLayer(chin=48 chout=96, freq=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+   TIME. HEncLayer(chin=48 chout=96, empty=False, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+   FREQ. HDecLayer(chin=48 chout=96, freq=True, dconv=0, context=1, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+   TIME. HDecLayer(chin=48 chout=96, freq=True, dconv=0, context=1,  empty=False, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+    FREQ. HEncLayer(chin=96 chout=192, freq=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+    TIME. HEncLayer(chin=96 chout=192, empty=False, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+    FREQ. HDecLayer(chin=96 chout=192, freq=True, dconv=0, context=1, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+    TIME. HDecLayer(chin=96 chout=192, freq=True, dconv=0, context=1,  empty=False, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+     FREQ. HEncLayer(chin=192 chout=384, freq=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+     TIME. HEncLayer(chin=192 chout=384, empty=False, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+     FREQ. HDecLayer(chin=192 chout=384, freq=True, dconv=0, context=1, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+     TIME. HDecLayer(chin=192 chout=384, freq=True, dconv=0, context=1,  empty=False, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': False, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': False, 'attn': False, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+      FREQ. HEncLayer(chin=384 chout=768, freq=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': False, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+      TIME. HEncLayer(chin=384 chout=768, empty=True, dconv=1, context=0, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+      FREQ. HDecLayer(chin=384 chout=768, freq=True, dconv=0, context=1, {'kernel_size': 8, 'stride': 4, 'freq': True, 'pad': False, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+      TIME. HDecLayer(chin=384 chout=768, freq=True, dconv=0, context=1,  empty=True, {'kernel_size': 8, 'stride': 4, 'freq': 0, 'pad': True, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+       FREQ. HEncLayer(chin=768 chout=1536, freq=False, dconv=1, context=0, {'kernel_size': 4, 'stride': 2, 'freq': False, 'pad': True, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+       FREQ. HDecLayer(chin=768 chout=1536, freq=False, dconv=0, context=1, {'kernel_size': 4, 'stride': 2, 'freq': False, 'pad': True, 'norm': True, 'rewrite': True, 'norm_groups': 4, 'dconv_kw': {'lstm': True, 'attn': True, 'depth': 2, 'compress': 4, 'init': 0.001, 'gelu': True}} 
+Separated tracks will be stored in /home/z/temp/separated/7fd6ef75
+Separating track /home/z/Music/Recording_Tests/Disc_1/14-Lola (Mono Single Mix).flac: load_track(/home/z/Music/Recording_Tests/Disc_1/14-Lola (Mono Single Mix).flac, audio_channels=2, samplerate=44100
+sepparate main() wav: (2, 10788624), mean -0.000, std 0.284, R [-0.877 0.846]
+applying model to (wav-mean)/std: (2, 10788624), mean 0.000, std 1.000, R [-3.087 2.978]
+Apply Model on torch.Size([1, 2, 10788624])
+ overlap: 0.25
+ shifts:  1
+ split:   True
+ transition_power:   1.0
+
+split length 10788624 to offsets w stride 3704400, segment 4939200: [0, 3704400, 7408800]
+  0%|                                                                                  | 0.0/252.0 [00:00<?, ?seconds/s]Apply Model on [1, 2, 4939200]
+ overlap: 0.25
+ shifts:  1
+ split:   False
+ transition_power:   1.0
+
+Apply Model on [1, 2, 4958572]
+ overlap: 0.25
+ shifts:  0
+ split:   False
+ transition_power:   1.0
+ HDemucs().forward(mix) [0] (1, 2, 4958572) 
+ z: stft   (1, 2, 2048, 4843), torch.complex64
+ mag: stft_as real   (1, 4, 2048, 4843), torch.float32 , mean 0.000, std 0.395, R [-21.572 26.162
+mag: stft norm   (1, 4, 2048, 4843), torch.float32 , mean 0.000, std 1.000, R [-54.620 66.241]
+ xt: time_branch norm  (1, 2, 4958572), torch.float32, mean -0.000, std 1.000, R [-3.385 3.264]
+ encoder length 6
+ HEncLayer[0] (1, 2, 4958572)-> (1, 48, 1239643): TIME BRANCH 
+ HEncLayer[0] ((1, 4, 2048, 4843), None)-> (1, 48, 512, 4843): FREQ BRANCH 
+ x = x + freq embed((512,)) (1, 48, 512, 1).expand -> emb (1, 48, 512, 4843) * scale 0.2
+  HEncLayer[1] (1, 48, 1239643)-> (1, 96, 309911): TIME BRANCH 
+  HEncLayer[1] ((1, 48, 512, 4843), None)-> (1, 96, 128, 4843): FREQ BRANCH 
+   HEncLayer[2] (1, 96, 309911)-> (1, 192, 77478): TIME BRANCH 
+   HEncLayer[2] ((1, 96, 128, 4843), None)-> (1, 192, 32, 4843): FREQ BRANCH 
+    HEncLayer[3] (1, 192, 77478)-> (1, 384, 19370): TIME BRANCH 
+    HEncLayer[3] ((1, 192, 32, 4843), None)-> (1, 384, 8, 4843): FREQ BRANCH 
+     HEncLayer[4] (1, 384, 19370)-> (1, 768, 4843): TIME BRANCH 
+     HEncLayer[4] ((1, 384, 8, 4843), (1, 768, 4843))-> (1, 768, 1, 4843): MERGE TIME & FREQ BRANCH 
+      HEncLayer[5] ((1, 768, 1, 4843), None)-> (1, 1536, 2422): FREQ BRANCH 
+       HDecLayer[0] (x (1, 1536, 2422), skip (1, 1536, 2422) -> x (1, 768, 4843), pre (1, 1536, 2422):FREQ BRANCH 
+      HDecLayer[1] (x (1, 768, 4843), skip (1, 768, 1, 4843) -> x (1, 384, 8, 4843), pre (1, 768, 1, 4843):FREQ BRANCH 
+      HDecLayer[0] (pre (1, 768, 4843) -> (1, 384, 19370) UNMERGED TIME BRANCH 
+     HDecLayer[2] (x (1, 384, 8, 4843), skip (1, 384, 8, 4843) -> x (1, 192, 32, 4843), pre (1, 384, 8, 4843):FREQ BRANCH 
+     HDecLayer[1] (xt (1, 384, 19370), skip (1, 384, 19370) -> (1, 192, 77478) TIME BRANCH 
+    HDecLayer[3] (x (1, 192, 32, 4843), skip (1, 192, 32, 4843) -> x (1, 96, 128, 4843), pre (1, 192, 32, 4843):FREQ BRANCH 
+    HDecLayer[2] (xt (1, 192, 77478), skip (1, 192, 77478) -> (1, 96, 309911) TIME BRANCH 
+   HDecLayer[4] (x (1, 96, 128, 4843), skip (1, 96, 128, 4843) -> x (1, 48, 512, 4843), pre (1, 96, 128, 4843):FREQ BRANCH 
+   HDecLayer[3] (xt (1, 96, 309911), skip (1, 96, 309911) -> (1, 48, 1239643) TIME BRANCH 
+  HDecLayer[5] (x (1, 48, 512, 4843), skip (1, 48, 512, 4843) -> x (1, 16, 2048, 4843), pre (1, 48, 512, 4843):FREQ BRANCH 
+  HDecLayer[4] (xt (1, 48, 1239643), skip (1, 48, 1239643) -> (1, 8, 4958572) TIME BRANCH 
+ OUT_FREQ -> iSFFT (1, 16, 2048, 4843) -> (1, 4, 2, 4958572) 
+ OUT TIME(1, 8, 4958572) -> (1, 4, 2, 4958572) + OUT_FREQ  torch.Size([1, 4, 2, 4958572]) 
+ 33%|████████████████████████▎                                                | 84.0/252.0 [00:01<00:02, 61.55seconds/s]Apply Model on [1, 2, 4939200]
+ overlap: 0.25
+ shifts:  1
+ split:   False
+ transition_power:   1.0
+
+Apply Model on [1, 2, 4947513]
+ overlap: 0.25
+ shifts:  0
+ split:   False
+ transition_power:   1.0
+ HDemucs().forward(mix) [1] (1, 2, 4947513) 
+ HEncLayer[0] (1, 2, 4947513)-> (1, 48, 1236879): TIME BRANCH 
+ HEncLayer[0] ((1, 4, 2048, 4832), None)-> (1, 48, 512, 4832): FREQ BRANCH 
+ x = x + freq embed((512,)) (1, 48, 512, 1).expand -> emb (1, 48, 512, 4832) * scale 0.2
+  HEncLayer[1] (1, 48, 1236879)-> (1, 96, 309220): TIME BRANCH 
+  HEncLayer[1] ((1, 48, 512, 4832), None)-> (1, 96, 128, 4832): FREQ BRANCH 
+   HEncLayer[2] (1, 96, 309220)-> (1, 192, 77305): TIME BRANCH 
+   HEncLayer[2] ((1, 96, 128, 4832), None)-> (1, 192, 32, 4832): FREQ BRANCH 
+    HEncLayer[3] (1, 192, 77305)-> (1, 384, 19327): TIME BRANCH 
+    HEncLayer[3] ((1, 192, 32, 4832), None)-> (1, 384, 8, 4832): FREQ BRANCH 
+     HEncLayer[4] (1, 384, 19327)-> (1, 768, 4832): TIME BRANCH 
+     HEncLayer[4] ((1, 384, 8, 4832), (1, 768, 4832))-> (1, 768, 1, 4832): MERGE TIME & FREQ BRANCH 
+      HEncLayer[5] ((1, 768, 1, 4832), None)-> (1, 1536, 2416): FREQ BRANCH 
+       HDecLayer[0] (x (1, 1536, 2416), skip (1, 1536, 2416) -> x (1, 768, 4832), pre (1, 1536, 2416):FREQ BRANCH 
+      HDecLayer[1] (x (1, 768, 4832), skip (1, 768, 1, 4832) -> x (1, 384, 8, 4832), pre (1, 768, 1, 4832):FREQ BRANCH 
+      HDecLayer[0] (pre (1, 768, 4832) -> (1, 384, 19327) UNMERGED TIME BRANCH 
+     HDecLayer[2] (x (1, 384, 8, 4832), skip (1, 384, 8, 4832) -> x (1, 192, 32, 4832), pre (1, 384, 8, 4832):FREQ BRANCH 
+     HDecLayer[1] (xt (1, 384, 19327), skip (1, 384, 19327) -> (1, 192, 77305) TIME BRANCH 
+    HDecLayer[3] (x (1, 192, 32, 4832), skip (1, 192, 32, 4832) -> x (1, 96, 128, 4832), pre (1, 192, 32, 4832):FREQ BRANCH 
+    HDecLayer[2] (xt (1, 192, 77305), skip (1, 192, 77305) -> (1, 96, 309220) TIME BRANCH 
+   HDecLayer[4] (x (1, 96, 128, 4832), skip (1, 96, 128, 4832) -> x (1, 48, 512, 4832), pre (1, 96, 128, 4832):FREQ BRANCH 
+   HDecLayer[3] (xt (1, 96, 309220), skip (1, 96, 309220) -> (1, 48, 1236879) TIME BRANCH 
+  HDecLayer[5] (x (1, 48, 512, 4832), skip (1, 48, 512, 4832) -> x (1, 16, 2048, 4832), pre (1, 48, 512, 4832):FREQ BRANCH 
+  HDecLayer[4] (xt (1, 48, 1236879), skip (1, 48, 1236879) -> (1, 8, 4947513) TIME BRANCH 
+ OUT_FREQ -> iSFFT (1, 16, 2048, 4832) -> (1, 4, 2, 4947513) 
+ OUT TIME(1, 8, 4947513) -> (1, 4, 2, 4947513) + OUT_FREQ  torch.Size([1, 4, 2, 4947513]) 
+ 67%|████████████████████████████████████████████████                        | 168.0/252.0 [00:02<00:01, 68.02seconds/s]Apply Model on [1, 2, 3379824]
+ overlap: 0.25
+ shifts:  1
+ split:   False
+ transition_power:   1.0
+
+Apply Model on [1, 2, 3380029]
+ overlap: 0.25
+ shifts:  0
+ split:   False
+ transition_power:   1.0
+ HDemucs().forward(mix) [2] (1, 2, 3380029) 
+ HEncLayer[0] (1, 2, 3380029)-> (1, 48, 845008): TIME BRANCH 
+ HEncLayer[0] ((1, 4, 2048, 3301), None)-> (1, 48, 512, 3301): FREQ BRANCH 
+ x = x + freq embed((512,)) (1, 48, 512, 1).expand -> emb (1, 48, 512, 3301) * scale 0.2
+  HEncLayer[1] (1, 48, 845008)-> (1, 96, 211252): TIME BRANCH 
+  HEncLayer[1] ((1, 48, 512, 3301), None)-> (1, 96, 128, 3301): FREQ BRANCH 
+   HEncLayer[2] (1, 96, 211252)-> (1, 192, 52813): TIME BRANCH 
+   HEncLayer[2] ((1, 96, 128, 3301), None)-> (1, 192, 32, 3301): FREQ BRANCH 
+    HEncLayer[3] (1, 192, 52813)-> (1, 384, 13204): TIME BRANCH 
+    HEncLayer[3] ((1, 192, 32, 3301), None)-> (1, 384, 8, 3301): FREQ BRANCH 
+     HEncLayer[4] (1, 384, 13204)-> (1, 768, 3301): TIME BRANCH 
+     HEncLayer[4] ((1, 384, 8, 3301), (1, 768, 3301))-> (1, 768, 1, 3301): MERGE TIME & FREQ BRANCH 
+      HEncLayer[5] ((1, 768, 1, 3301), None)-> (1, 1536, 1651): FREQ BRANCH 
+       HDecLayer[0] (x (1, 1536, 1651), skip (1, 1536, 1651) -> x (1, 768, 3301), pre (1, 1536, 1651):FREQ BRANCH 
+      HDecLayer[1] (x (1, 768, 3301), skip (1, 768, 1, 3301) -> x (1, 384, 8, 3301), pre (1, 768, 1, 3301):FREQ BRANCH 
+      HDecLayer[0] (pre (1, 768, 3301) -> (1, 384, 13204) UNMERGED TIME BRANCH 
+     HDecLayer[2] (x (1, 384, 8, 3301), skip (1, 384, 8, 3301) -> x (1, 192, 32, 3301), pre (1, 384, 8, 3301):FREQ BRANCH 
+     HDecLayer[1] (xt (1, 384, 13204), skip (1, 384, 13204) -> (1, 192, 52813) TIME BRANCH 
+    HDecLayer[3] (x (1, 192, 32, 3301), skip (1, 192, 32, 3301) -> x (1, 96, 128, 3301), pre (1, 192, 32, 3301):FREQ BRANCH 
+    HDecLayer[2] (xt (1, 192, 52813), skip (1, 192, 52813) -> (1, 96, 211252) TIME BRANCH 
+   HDecLayer[4] (x (1, 96, 128, 3301), skip (1, 96, 128, 3301) -> x (1, 48, 512, 3301), pre (1, 96, 128, 3301):FREQ BRANCH 
+   HDecLayer[3] (xt (1, 96, 211252), skip (1, 96, 211252) -> (1, 48, 845008) TIME BRANCH 
+  HDecLayer[5] (x (1, 48, 512, 3301), skip (1, 48, 512, 3301) -> x (1, 16, 2048, 3301), pre (1, 48, 512, 3301):FREQ BRANCH 
+  HDecLayer[4] (xt (1, 48, 845008), skip (1, 48, 845008) -> (1, 8, 3380029) TIME BRANCH 
+ OUT_FREQ -> iSFFT (1, 16, 2048, 3301) -> (1, 4, 2, 3380029) 
+ OUT TIME(1, 8, 3380029) -> (1, 4, 2, 3380029) + OUT_FREQ  torch.Size([1, 4, 2, 3380029]) 
+100%|████████████████████████████████████████████████████████████████████████| 252.0/252.0 [00:03<00:00, 76.60seconds/s]
+
+###
+#
+# Training
+#
+"""
+# APPROXIMATE CODE RUN TO TRIGGER TRAINING LOOP FOR DEBUG
+>>> 
+import torch
+import torch.nn.functional as F
+from demucs.hdemucs import HDemucs
+from demucs import distrib
+from demucs.wav import get_wav_datasets, get_musdb_wav_datasets
+from koreto import ObjDict
+musdb= "/home/z/data/Audio/musdb18hq"
+config='/home/z/work/gits/Audio/demucs/conf/config.yaml'
+samplerate= 44100
+channels = 48
+batch_size = 4 # original 48 too large
+o = ObjDict()
+o.from_yaml(config)
+
+#
+# train.get_solver()
+#
+model = HDemucs(sources=['drums', 'bass', 'other', 'vocals'])
+model.cuda()
+model.train()
+optimizer = torch.optim.Adam(model.parameters(), lr = o.optim['lr'], betas=(0.9,0.999),weight_decay=0)
+train_set, valid_set = get_musdb_wav_datasets(ObjDict(o.dset))
+distrib.init()
+loader = distrib.loader(train_set, batch_size=batch_size, shuffle=True, num_workers=4, drop_last=True)
+
+#
+# Solver._run_one_epoch()
+#
+
+it = iter(loader)  #looped
+sources = it.next().cuda() # instruments are separate
+mix = sources.sum(dim=1)  # make joint 
+
+mix.shape # torch.Size([batch_size, 2, 485100])
+sources.shape # torch.Size([batch_size, 4, 2, 485100])
+
+estimate = model(mix)
+
+
+loss = F.l1_loss(estimate, sources, reduction='none')
+loss.shape # torch.Size([batch_size, 4, 2, 485100])
+
+dims = tuple(range(2, sources.dim()) # (2, 3)
+loss = loss.mean(dims) 
+loss.shape # torch.Size([4, 4])
+loss = loss.mean(0)
+
+
+"""
+### MODEL
+>>> model.train()
+HDemucs(
+  (encoder): ModuleList(
+    (0): HEncLayer(
+      (conv): Conv2d(4, 48, kernel_size=(8, 1), stride=(4, 1), padding=(2, 0))
+      (norm1): Identity()
+      (rewrite): Conv2d(48, 96, kernel_size=(1, 1), stride=(1, 1))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(48, 12, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 12, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(12, 96, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(48, 12, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 12, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(12, 96, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (1): HEncLayer(
+      (conv): Conv2d(48, 96, kernel_size=(8, 1), stride=(4, 1), padding=(2, 0))
+      (norm1): Identity()
+      (rewrite): Conv2d(96, 192, kernel_size=(1, 1), stride=(1, 1))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(96, 24, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 24, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(24, 192, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(96, 24, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 24, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(24, 192, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (2): HEncLayer(
+      (conv): Conv2d(96, 192, kernel_size=(8, 1), stride=(4, 1), padding=(2, 0))
+      (norm1): Identity()
+      (rewrite): Conv2d(192, 384, kernel_size=(1, 1), stride=(1, 1))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(192, 48, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 48, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(48, 384, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(192, 48, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 48, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(48, 384, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (3): HEncLayer(
+      (conv): Conv2d(192, 384, kernel_size=(8, 1), stride=(4, 1), padding=(2, 0))
+      (norm1): Identity()
+      (rewrite): Conv2d(384, 768, kernel_size=(1, 1), stride=(1, 1))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(384, 96, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(96, 768, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 768, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(384, 96, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(96, 768, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 768, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (4): HEncLayer(
+      (conv): Conv2d(384, 768, kernel_size=(8, 1), stride=(4, 1))
+      (norm1): GroupNorm(4, 768, eps=1e-05, affine=True)
+      (rewrite): Conv2d(768, 1536, kernel_size=(1, 1), stride=(1, 1))
+      (norm2): GroupNorm(4, 1536, eps=1e-05, affine=True)
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(768, 192, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): BLSTM(
+              (lstm): LSTM(192, 192, num_layers=2, bidirectional=True)
+              (linear): Linear(in_features=384, out_features=192, bias=True)
+            )
+            (4): LocalState(
+              (content): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (query): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (key): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (query_decay): Conv1d(192, 16, kernel_size=(1,), stride=(1,))
+              (proj): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+            )
+            (5): Conv1d(192, 1536, kernel_size=(1,), stride=(1,))
+            (6): GroupNorm(1, 1536, eps=1e-05, affine=True)
+            (7): GLU(dim=1)
+            (8): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(768, 192, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): BLSTM(
+              (lstm): LSTM(192, 192, num_layers=2, bidirectional=True)
+              (linear): Linear(in_features=384, out_features=192, bias=True)
+            )
+            (4): LocalState(
+              (content): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (query): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (key): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+              (query_decay): Conv1d(192, 16, kernel_size=(1,), stride=(1,))
+              (proj): Conv1d(192, 192, kernel_size=(1,), stride=(1,))
+            )
+            (5): Conv1d(192, 1536, kernel_size=(1,), stride=(1,))
+            (6): GroupNorm(1, 1536, eps=1e-05, affine=True)
+            (7): GLU(dim=1)
+            (8): LayerScale()
+          )
+        )
+      )
+    )
+    (5): HEncLayer(
+      (conv): Conv1d(768, 1536, kernel_size=(4,), stride=(2,), padding=(1,))
+      (norm1): GroupNorm(4, 1536, eps=1e-05, affine=True)
+      (rewrite): Conv1d(1536, 3072, kernel_size=(1,), stride=(1,))
+      (norm2): GroupNorm(4, 3072, eps=1e-05, affine=True)
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(1536, 384, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): BLSTM(
+              (lstm): LSTM(384, 384, num_layers=2, bidirectional=True)
+              (linear): Linear(in_features=768, out_features=384, bias=True)
+            )
+            (4): LocalState(
+              (content): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (query): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (key): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (query_decay): Conv1d(384, 16, kernel_size=(1,), stride=(1,))
+              (proj): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+            )
+            (5): Conv1d(384, 3072, kernel_size=(1,), stride=(1,))
+            (6): GroupNorm(1, 3072, eps=1e-05, affine=True)
+            (7): GLU(dim=1)
+            (8): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(1536, 384, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): BLSTM(
+              (lstm): LSTM(384, 384, num_layers=2, bidirectional=True)
+              (linear): Linear(in_features=768, out_features=384, bias=True)
+            )
+            (4): LocalState(
+              (content): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (query): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (key): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+              (query_decay): Conv1d(384, 16, kernel_size=(1,), stride=(1,))
+              (proj): Conv1d(384, 384, kernel_size=(1,), stride=(1,))
+            )
+            (5): Conv1d(384, 3072, kernel_size=(1,), stride=(1,))
+            (6): GroupNorm(1, 3072, eps=1e-05, affine=True)
+            (7): GLU(dim=1)
+            (8): LayerScale()
+          )
+        )
+      )
+    )
+  )
+  (decoder): ModuleList(
+    (0): HDecLayer(
+      (conv_tr): ConvTranspose1d(1536, 768, kernel_size=(4,), stride=(2,))
+      (norm2): GroupNorm(4, 768, eps=1e-05, affine=True)
+      (rewrite): Conv1d(1536, 3072, kernel_size=(3,), stride=(1,), padding=(1,))
+      (norm1): GroupNorm(4, 3072, eps=1e-05, affine=True)
+    )
+    (1): HDecLayer(
+      (conv_tr): ConvTranspose2d(768, 384, kernel_size=(8, 1), stride=(4, 1))
+      (norm2): GroupNorm(4, 384, eps=1e-05, affine=True)
+      (rewrite): Conv2d(768, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm1): GroupNorm(4, 1536, eps=1e-05, affine=True)
+    )
+    (2): HDecLayer(
+      (conv_tr): ConvTranspose2d(384, 192, kernel_size=(8, 1), stride=(4, 1))
+      (norm2): Identity()
+      (rewrite): Conv2d(384, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm1): Identity()
+    )
+    (3): HDecLayer(
+      (conv_tr): ConvTranspose2d(192, 96, kernel_size=(8, 1), stride=(4, 1))
+      (norm2): Identity()
+      (rewrite): Conv2d(192, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm1): Identity()
+    )
+    (4): HDecLayer(
+      (conv_tr): ConvTranspose2d(96, 48, kernel_size=(8, 1), stride=(4, 1))
+      (norm2): Identity()
+      (rewrite): Conv2d(96, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm1): Identity()
+    )
+    (5): HDecLayer(
+      (conv_tr): ConvTranspose2d(48, 16, kernel_size=(8, 1), stride=(4, 1))
+      (norm2): Identity()
+      (rewrite): Conv2d(48, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm1): Identity()
+    )
+  )
+  (tencoder): ModuleList(
+    (0): HEncLayer(
+      (conv): Conv1d(2, 48, kernel_size=(8,), stride=(4,), padding=(2,))
+      (norm1): Identity()
+      (rewrite): Conv1d(48, 96, kernel_size=(1,), stride=(1,))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(48, 12, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 12, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(12, 96, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(48, 12, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 12, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(12, 96, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (1): HEncLayer(
+      (conv): Conv1d(48, 96, kernel_size=(8,), stride=(4,), padding=(2,))
+      (norm1): Identity()
+      (rewrite): Conv1d(96, 192, kernel_size=(1,), stride=(1,))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(96, 24, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 24, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(24, 192, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(96, 24, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 24, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(24, 192, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 192, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (2): HEncLayer(
+      (conv): Conv1d(96, 192, kernel_size=(8,), stride=(4,), padding=(2,))
+      (norm1): Identity()
+      (rewrite): Conv1d(192, 384, kernel_size=(1,), stride=(1,))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(192, 48, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 48, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(48, 384, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(192, 48, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 48, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(48, 384, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 384, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (3): HEncLayer(
+      (conv): Conv1d(192, 384, kernel_size=(8,), stride=(4,), padding=(2,))
+      (norm1): Identity()
+      (rewrite): Conv1d(384, 768, kernel_size=(1,), stride=(1,))
+      (norm2): Identity()
+      (dconv): DConv(
+        (layers): ModuleList(
+          (0): Sequential(
+            (0): Conv1d(384, 96, kernel_size=(3,), stride=(1,), padding=(1,))
+            (1): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(96, 768, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 768, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+          (1): Sequential(
+            (0): Conv1d(384, 96, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,))
+            (1): GroupNorm(1, 96, eps=1e-05, affine=True)
+            (2): GELU()
+            (3): Conv1d(96, 768, kernel_size=(1,), stride=(1,))
+            (4): GroupNorm(1, 768, eps=1e-05, affine=True)
+            (5): GLU(dim=1)
+            (6): LayerScale()
+          )
+        )
+      )
+    )
+    (4): HEncLayer(
+      (conv): Conv1d(384, 768, kernel_size=(8,), stride=(4,), padding=(2,))
+    )
+  )
+  (tdecoder): ModuleList(
+    (0): HDecLayer(
+      (conv_tr): ConvTranspose1d(768, 384, kernel_size=(8,), stride=(4,))
+      (norm2): GroupNorm(4, 384, eps=1e-05, affine=True)
+    )
+    (1): HDecLayer(
+      (conv_tr): ConvTranspose1d(384, 192, kernel_size=(8,), stride=(4,))
+      (norm2): Identity()
+      (rewrite): Conv1d(384, 768, kernel_size=(3,), stride=(1,), padding=(1,))
+      (norm1): Identity()
+    )
+    (2): HDecLayer(
+      (conv_tr): ConvTranspose1d(192, 96, kernel_size=(8,), stride=(4,))
+      (norm2): Identity()
+      (rewrite): Conv1d(192, 384, kernel_size=(3,), stride=(1,), padding=(1,))
+      (norm1): Identity()
+    )
+    (3): HDecLayer(
+      (conv_tr): ConvTranspose1d(96, 48, kernel_size=(8,), stride=(4,))
+      (norm2): Identity()
+      (rewrite): Conv1d(96, 192, kernel_size=(3,), stride=(1,), padding=(1,))
+      (norm1): Identity()
+    )
+    (4): HDecLayer(
+      (conv_tr): ConvTranspose1d(48, 8, kernel_size=(8,), stride=(4,))
+      (norm2): Identity()
+      (rewrite): Conv1d(48, 96, kernel_size=(3,), stride=(1,), padding=(1,))
+      (norm1): Identity()
+    )
+  )
+  (freq_emb): ScaledEmbedding(
+    (embedding): Embedding(512, 48)
+  )
+)
